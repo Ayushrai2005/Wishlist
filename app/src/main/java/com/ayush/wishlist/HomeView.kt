@@ -83,7 +83,6 @@ fun WishItem(wish : Wish, onClick : () -> Unit){
             },
             elevation = 10.dp ,
         backgroundColor = Color.White
-
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -91,10 +90,6 @@ fun WishItem(wish : Wish, onClick : () -> Unit){
             Text(text = wish.title , fontWeight = FontWeight.ExtraBold)
             Text(text = wish.description , fontWeight = FontWeight.Thin)
 
-
         }
-
-
     }
-
 }
