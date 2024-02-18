@@ -8,28 +8,24 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 abstract class WishDao {
 
-
         @Insert(onConflict = OnConflictStrategy.IGNORE)
-        abstract fun addAWish(wish : Wish)
+        abstract suspend fun addAWish(wishEntity: Wish)
 
-
-        //Loads All wishes from thr wish table
-        @Query("SELECT * FROM 'Wish-table'")
-        abstract suspend fun getAllWishes() : Flow<List<Wish>>
+        // Loads all wishes from the wish table
+        @Query("Select * from `Wish-table`")
+        abstract fun getAllWishes(): Flow<List<Wish>>
 
         @Update
-        abstract suspend fun updateAWish(wishEntity : Wish)
-
-
-        @Query("SELECT * FROM 'Wish-table' WHERE ID=id")
-        abstract fun getAWishById(id:Long) : Flow<Wish>
-
+        abstract suspend fun updateAWish(wishEntity: Wish)
 
         @Delete
-        abstract fun deleteAWish(wishEntity: Wish)
+        abstract suspend fun deleteAWish(wishEntity: Wish)
+
+        @Query("Select * from `wish-table` where id=:id")
+        abstract fun getAWishById(id:Long): Flow<Wish>
+
 
 }
