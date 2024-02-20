@@ -17,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,6 +46,16 @@ fun AddEditDetailView(
     }
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
+    if(id!= 0L){
+        //entry through an existing list with data
+        val wish = viewModel.getAWishById(id).collectAsState(initial = Wish(0L , "" , ""))
+        viewModel.wishTitleState= wish.value.title
+        viewModel.wishDescriptionState = wish.value.description
+    }else{
+        //We get through creating an new entry
+        viewModel.wishTitleState = ""
+        viewModel.wishDescriptionState = ""
+    }
 
     Scaffold(
         topBar = {
@@ -87,7 +98,11 @@ fun AddEditDetailView(
 
 
                     if(id!=0L){
-                        //TODO Update wish
+                        viewModel.updateWish(Wish(
+                            id = id ,
+                            title = viewModel.wishTitleState.trim(),
+                            description = viewModel.wishDescriptionState.trim()
+                        ))
                     }else{
                         viewModel.addWish(
                             Wish(
@@ -101,7 +116,7 @@ fun AddEditDetailView(
                 }
 
                 scope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(snackMessage.value)
+//                    scaffoldState.snackbarHostState.showSnackbar(snackMessage.value)
                     navController.navigateUp()
                 }
             }) {
