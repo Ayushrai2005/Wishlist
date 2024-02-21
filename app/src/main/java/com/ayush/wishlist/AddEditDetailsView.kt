@@ -109,7 +109,7 @@ fun AddEditDetailView(
                                 title = viewModel.wishTitleState.trim(),
                                 description = viewModel.wishDescriptionState.trim())
                         )
-                        snackMessage.value = "wish has been created"
+                        snackMessage.value ="\uD83E\uDDD9 May your wish be fulfilled"
                     }
                 }else{
                     snackMessage.value = "Enter Fields to create a Wish"
@@ -161,10 +161,3 @@ fun WishTextField(
     )
 
 }
-
-@Preview
-@Composable
-fun WishtestField(){
-    WishTextField(label = "text", value = "text", onValueChanged = {})
-}
-

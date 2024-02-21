@@ -35,9 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.ayush.wishlist.Data.DummyWish
 import com.ayush.wishlist.Data.Wish
-import kotlinx.coroutines.flow.collect
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -107,7 +105,7 @@ fun HomeView(
 
                     },
                     directions = setOf(DismissDirection.EndToStart),
-                    dismissThresholds = { FractionalThreshold(1f) },
+                    dismissThresholds = { FractionalThreshold(0.5f) },
                     dismissContent = {
                         WishItem(wish = wish) {
                             val id = wish.id
@@ -136,7 +134,7 @@ fun WishItem(wish: Wish, onClick: () -> Unit) {
             .clickable {
                 onClick()
             },
-        elevation = 10.dp,
+        elevation = 12.dp,
         backgroundColor = Color.White
     ) {
         Column(
